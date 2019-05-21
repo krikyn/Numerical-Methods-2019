@@ -17,9 +17,9 @@ filename_arr = ['well_conditioned_matrix', 'random_matrix', 'poorly_conditioned_
 b = np.load(os.path.join(DATA_DIR, "b.npy"))
 methods = [('conjugate_gradient', conjugate_gradient)]
 matrices = [(name, np.load(os.path.join(DATA_DIR, name + ".npy"))) for name in filename_arr]
-try:
-    for method in methods:
+for method in methods:
+    try:
         for matrix in matrices:
             test_method(method[0], matrix[0], method[1], matrix[1], b)
-except Exception as e:
-    print("%s: %s" % ("exception", str(e)))
+    except Exception as e:
+        print("%s (%s): %s" % ("exception", method[0], str(e)))
