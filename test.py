@@ -1,9 +1,11 @@
 import os
+import traceback
 
 import numpy as np
 from numpy.linalg import LinAlgError
 
 from conjugate_gradient_method import conjugate_gradient
+from gauss_method import gauss_method
 
 DATA_DIR = "data"
 ACCURACY = 1e-5
@@ -18,7 +20,7 @@ def test_method(method_name, matrix_name, solution, fun, A, b):
 
 filename_arr = ['well_conditioned_matrix', 'random_matrix', 'poorly_conditioned_matrix']
 b = np.load(os.path.join(DATA_DIR, "b.npy"))
-methods = [('conjugate_gradient', conjugate_gradient)]
+methods = [('conjugate_gradient', conjugate_gradient), ('gauss', gauss_method)]
 matrices = [(name, np.load(os.path.join(DATA_DIR, name + ".npy"))) for name in filename_arr]
 solutions = [np.linalg.solve(m[1], b) for m in matrices]
 for matrix in matrices:
@@ -30,6 +32,7 @@ for matrix in matrices:
 for method in methods:
     try:
         for (solution, matrix) in zip(solutions, matrices):
-            test_method(method[0], matrix[0], solution, method[1], matrix[1], b)
+            test_method(method[0], matrix[0], solution, method[1], matrix[1].copy(), b.copy())
     except Exception as e:
-        print("%s (%s): %s" % ("exception", method[0], str(e)))
+        print("%s (%s): %s" % ("exception", method[0], e))
+        traceback.print_exc()
