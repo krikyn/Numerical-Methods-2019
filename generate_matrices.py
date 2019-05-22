@@ -36,9 +36,12 @@ def print_matrix_with_meta_data(filename, matrix):
     details_file = open(os.path.join(DATA_DIR, filename + '.txt'), 'w')
     try:
         details_file.write(np.array2string(matrix) + "\n")
-        details_file.write("determiner:                " + str(linalg.det(matrix)) + "\n")
+        details_file.write("\ndeterminer:                " + str(linalg.det(matrix)) + "\n")
         details_file.write("inverse matrix determiner: " + str(linalg.det(linalg.inv(matrix))) + "\n")
-        details_file.write("condition number:          " + str(linalg.cond(matrix)))
+        details_file.write("euclidean norm:            " + str(linalg.norm(matrix, 'fro')) + "\n")
+        details_file.write("euclidean norm \nof inverse matrix:         " + str(linalg.norm(linalg.inv(matrix), 'fro'))
+                           + "\n")
+        details_file.write("condition number:          " + str(linalg.cond(matrix, 'fro')))
     finally:
         details_file.close()
 
