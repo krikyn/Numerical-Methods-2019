@@ -13,11 +13,11 @@ def init_hilbert(i, j):
 
 
 def get_random_matrix():
-    return np.random.randint(-MAX_NUMBER, MAX_NUMBER, size=(SIZE, SIZE))
+    return np.random.randint(1, MAX_NUMBER, size=(SIZE, SIZE))
 
 
 def get_random_vector():
-    return np.random.randint(-MAX_NUMBER, MAX_NUMBER, size=(SIZE,))
+    return np.random.randint(1, MAX_NUMBER, size=(SIZE,))
 
 
 def apply_diagonal_dominance(matrix):
@@ -32,13 +32,17 @@ def apply_diagonal_dominance(matrix):
 
 
 def print_matrix_with_meta_data(filename, matrix):
+    matrix = matrix.astype(np.float64)
     np.save(os.path.join(DATA_DIR, filename), matrix)
     details_file = open(os.path.join(DATA_DIR, filename + '.txt'), 'w')
     try:
-        details_file.write(np.array2string(matrix) + "\n")
-        details_file.write("determiner:                " + str(linalg.det(matrix)) + "\n")
-        details_file.write("inverse matrix determiner: " + str(linalg.det(linalg.inv(matrix))) + "\n")
-        details_file.write("condition number:          " + str(linalg.cond(matrix)))
+        details_file.write(np.array2string(matrix) + "\n\n")
+        details_file.write("determiner:                       " + str(linalg.det(matrix)) + "\n")
+        details_file.write("inverse matrix determiner:        " + str(linalg.det(linalg.inv(matrix))) + "\n")
+        details_file.write("euclidean norm:                   " + str(linalg.norm(matrix, 'fro')) + "\n")
+        details_file.write("euclidean norm of inverse matrix: " + str(linalg.norm(linalg.inv(matrix), 'fro'))
+                           + "\n")
+        details_file.write("condition number:                 " + str(linalg.cond(matrix, 'fro')))
     finally:
         details_file.close()
 
