@@ -1,7 +1,7 @@
 import math
 
 
-def seidel_relax(A, b, accuracy=1e-5, iterations=1000):
+def seidel_relax(A, b, accuracy=1e-5, iterations=10000):
     iteration = 0
     B = []
     d = []
@@ -28,6 +28,7 @@ def seidel_relax(A, b, accuracy=1e-5, iterations=1000):
             xn[i] = relax * xn[i] + (1 - relax) * x[i]
         iteration = iteration + 1
 
+    print("Iterations number: " + str(iteration))
     return x
 
 

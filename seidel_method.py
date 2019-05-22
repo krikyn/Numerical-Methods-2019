@@ -1,7 +1,7 @@
 import math
 
 
-def seidel(A, b, accuracy=1e-5, iterations=1000):
+def seidel(A, b, accuracy=1e-5, iterations=10000):
     iteration = 0
     B = []
     d = []
@@ -26,6 +26,7 @@ def seidel(A, b, accuracy=1e-5, iterations=1000):
             xn[i] += d[i]
         iteration = iteration + 1
 
+    print("Iterations number: " + str(iteration))
     return x
 
 

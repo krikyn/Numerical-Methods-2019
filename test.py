@@ -34,6 +34,7 @@ for matrix in matrices:
         print(np.linalg.solve(matrix[1], b))
     except LinAlgError as e:
         print("error: A is singular")
+print()
 for method in methods:
     try:
         for (solution, matrix) in zip(solutions, matrices):
@@ -41,3 +42,4 @@ for method in methods:
     except Exception as e:
         print("%s (%s): %s" % ("exception", method[0], e))
         traceback.print_exc()
+    print()

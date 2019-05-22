@@ -31,7 +31,9 @@ def conjugate_gradient(A, b, x0=None, accuracy=1e-5, iterations=10000):
         beta = pr_new / pr
         pr = pr_new
         if np.linalg.norm(r) / norm_b < accuracy:
+            print("Iterations number: " + str(i))
             break
         z = r + np.dot(beta, z)
         s = p + np.dot(beta, s)
+
     return x0

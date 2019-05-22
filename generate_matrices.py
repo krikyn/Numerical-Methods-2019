@@ -3,21 +3,21 @@ import os
 import numpy as np
 from numpy.linalg import linalg
 
-SIZE = 20
+SIZE = 5
 MAX_NUMBER = 100
 DATA_DIR = "data"
 
 
 def init_hilbert(i, j):
-    return 1 / (1 + i + j)
+    return 1.0 / (1.0 + i + j)
 
 
 def get_random_matrix():
-    return np.random.randint(1, MAX_NUMBER, size=(SIZE, SIZE))
+    return np.random.uniform(low=1, high=MAX_NUMBER, size=(SIZE, SIZE))
 
 
 def get_random_vector():
-    return np.random.randint(1, MAX_NUMBER, size=(SIZE,))
+    return np.random.uniform(low=1, high=MAX_NUMBER, size=(SIZE,))
 
 
 def apply_diagonal_dominance(matrix):
